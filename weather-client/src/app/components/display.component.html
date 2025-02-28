@@ -1,0 +1,42 @@
+<div class="weather-container">
+    <div class="weather-details">
+
+        <h2>{{city}}</h2>
+        <img src="http://openweathermap.org/img/w/{{ weatherDetail.icon}}.png">
+        {{weatherDetail.main}}
+
+        <hr>
+
+        <div>
+            <table>
+                <tr>
+                    <td>Description:</td>
+                    <td>{{weatherDetail.description}}</td>
+                </tr>
+                <tr>
+                    <td>Temperature:</td>
+                    <td>{{weatherDetail.temp}} °C</td>
+                </tr>
+                <tr>
+                    <td>Temp-Min</td>
+                    <td>{{weatherDetail.temp_min}} °C</td>
+                </tr>
+                <tr>
+                    <td>Temp-Max</td>
+                    <td>{{weatherDetail.temp_max}} °C</td>
+                </tr>
+                <tr>
+                    <td>Pressure</td>
+                    <td>{{weatherDetail.pressure}} hPa</td>
+                </tr>
+                <tr>
+                    <td>Humidity</td>
+                    <td>{{weatherDetail.humidity}} %</td>
+                </tr>
+            </table>
+            <div class="back-button-container">
+                <button type="button" [routerLink]="['/']" class="back-button">Back</button>
+            </div>
+        </div>
+    </div>
+</div>

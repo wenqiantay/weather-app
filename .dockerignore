@@ -1,0 +1,3 @@
+weather-client/node_modules
+weather-client/dist
+weather-server/target

@@ -1,0 +1,21 @@
+<h1 class="search-title"> Weather Search</h1>
+
+<div class="search-container">
+    <form [formGroup]="form" class="search-form">
+        <label for="city" class="search-label">Search City:</label>
+        <input type="text" formControlName="city" class="search-input">
+        <button type="button" (click)="addToCityList()" class="add-city-btn"> + </button>
+    </form>
+</div>
+
+<hr class="divider">
+
+<div class="city-list-container">
+    @for (city of cityList; track $index) {
+        <ul class="city-list">
+            <li>
+                <a [routerLink]="['/weather', city]" (click)="getWeatherOnClick(city)" class="city-link">{{ city }}</a>
+            </li>
+        </ul>
+    }
+</div>
