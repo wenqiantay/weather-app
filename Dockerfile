@@ -22,7 +22,7 @@ COPY weather-server/mvnw .
 COPY weather-server/pom.xml .
 
 # Copy angular files over to static
-COPY --from=ng-build /src/dist/client/browser/* src/main/resources/static
+COPY --from=ng-build /src/dist/weather-client/browser/ src/main/resources/static
 
 RUN chmod a+x mvnw && ./mvnw package -Dmaven.test.skip=true
 

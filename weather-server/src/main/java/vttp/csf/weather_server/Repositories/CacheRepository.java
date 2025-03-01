@@ -36,7 +36,7 @@ public class CacheRepository {
 
                 return weather;
 
-            } else if( duration.toMinutes() > 15){ 
+            } else { 
 
                 removeCachedData(city);
             }
@@ -51,6 +51,18 @@ public class CacheRepository {
     }
 
     public void removeCachedData(String city) {
-        template.remove(template.findById(city, Weather.class, "weather_cache"));
+        
+        Criteria criteria = Criteria.where("city").is(city);
+        Query query = Query.query(criteria);
+    
+
+        Weather weather = template.findOne(query, Weather.class, "weather_cache");
+
+        // Remove only when data exist
+        if( weather != null) {
+            template.remove(weather);
+        } else {
+            System.out.println("There is no cached data for city: " + city);
+        }
     }
 }
