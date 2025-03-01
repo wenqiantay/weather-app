@@ -31,11 +31,12 @@ public class WeatherService {
 
     public Weather getWeatherResult(String city) {
 
-        Weather weatherCached = cacheRepo.isDataCached(city);
 
         // retrieve cached data if exists
-        if( weatherCached != null) {
-            return weatherCached;
+        if( cacheRepo.isDataCached(city)) {
+
+            Weather cachedWeather = cacheRepo.getCachedWeather(city);
+            return cachedWeather;
         } 
 
         // If there is no cached data then save a new entry

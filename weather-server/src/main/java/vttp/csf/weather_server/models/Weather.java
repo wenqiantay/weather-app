@@ -2,11 +2,14 @@ package vttp.csf.weather_server.models;
 
 import java.time.Instant;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Weather {
     
+    @Id
+    private String id;
     private String city;
     private String main;
     private String description;
@@ -85,14 +88,18 @@ public class Weather {
     public void setCity(String city) {
         this.city = city;
     }
-    @Override
-    public String toString() {
-        return "Weather [city=" + city + ", main=" + main + ", description=" + description + ", icon=" + icon
-                + ", temp=" + temp + ", feels_like=" + feels_like + ", temp_min=" + temp_min + ", temp_max=" + temp_max
-                + ", pressure=" + pressure + ", humidity=" + humidity + ", timeStamp=" + timeStamp + "]";
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
-   
-    
+    @Override
+    public String toString() {
+        return "Weather [id=" + id + ", city=" + city + ", main=" + main + ", description=" + description + ", icon="
+                + icon + ", temp=" + temp + ", feels_like=" + feels_like + ", temp_min=" + temp_min + ", temp_max="
+                + temp_max + ", pressure=" + pressure + ", humidity=" + humidity + ", timeStamp=" + timeStamp + "]";
+    }
     
 }

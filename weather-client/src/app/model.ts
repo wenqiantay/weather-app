@@ -3,6 +3,7 @@ export interface weatherList {
 }
 
 export interface weatherDetails {
+    id: String
     city: String
     main: String
     description: String

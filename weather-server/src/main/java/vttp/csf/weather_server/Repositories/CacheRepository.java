@@ -18,7 +18,7 @@ public class CacheRepository {
     private MongoTemplate template;
 
     // Check if the data is in Mongo
-    public Weather isDataCached(String city) {
+    public boolean  isDataCached(String city) {
 
         Criteria criteria = Criteria.where("city").is(city);
         Query query = Query.query(criteria);
@@ -34,7 +34,7 @@ public class CacheRepository {
             
             if(duration.toMinutes() <= 15) {
 
-                return weather;
+                return true;
 
             } else { 
 
@@ -42,12 +42,46 @@ public class CacheRepository {
             }
         }
 
-        return null;
+        return false;
+    }
+
+    public Weather getCachedWeather(String city) {
+
+        Criteria criteria = Criteria.where("city").is(city);
+        Query query = Query.query(criteria);
+
+        return template.findOne(query, Weather.class, "weather_cache");
     }
 
     public void saveWeatherData(Weather weather) {
-        weather.setTimeStamp(Instant.now()); 
-        template.save(weather, "weather_cache"); 
+
+        Criteria criteria = Criteria.where("city").is(weather.getCity());
+        Query query = Query.query(criteria);
+
+        Weather existingWeather = template.findOne(query, Weather.class, "weather_cache");
+
+
+        if (existingWeather != null) {
+    
+            existingWeather.setMain(weather.getMain());
+            existingWeather.setDescription(weather.getDescription());
+            existingWeather.setIcon(weather.getIcon());
+            existingWeather.setTemp(weather.getTemp());
+            existingWeather.setFeels_like(weather.getFeels_like());
+            existingWeather.setTemp_min(weather.getTemp_min());
+            existingWeather.setTemp_max(weather.getTemp_max());
+            existingWeather.setPressure(weather.getPressure());
+            existingWeather.setHumidity(weather.getHumidity());
+            existingWeather.setTimeStamp(Instant.now());
+
+
+            template.save(existingWeather, "weather_cache");
+
+        } else {
+        
+            weather.setTimeStamp(Instant.now()); 
+            template.save(weather, "weather_cache");
+        }
     }
 
     public void removeCachedData(String city) {
